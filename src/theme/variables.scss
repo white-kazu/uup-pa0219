@@ -3,7 +3,7 @@
 
 /** Ionic CSS Variables **/
 :root {
-  --ion-color-primary: #8080ff;
+  --ion-color-primary: ionic cordova prepare;
   --ion-color-primary-rgb: 128,128,255;
   --ion-color-primary-contrast: #000000;
   --ion-color-primary-contrast-rgb: 0,0,0;
@@ -65,4 +65,38 @@
   --ion-color-light-contrast-rgb: 0,0,0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  ion-color-favorite {
+    --ion-color-base: #69bb7b;
+    --ion-color-base-rgb: 105, 187, 123;
+    --ion-color-contrast: #ffffff;
+    --ion-color-contrast-rgb: 255, 255, 255;
+    --ion-color-shade: #5ca56c;
+    --ion-color-tint: #78c288;
+  }
+  
+   .ion-color-ホーム {
+    --ion-color-base: #69bb7b;
+    --ion-color-base-rgb: 105, 187, 123;
+    --ion-color-contrast: #ffffff;
+    --ion-color-contrast-rgb: 255, 255, 255;
+    --ion-color-shade: #5ca56c;
+    --ion-color-tint: #78c288;
+  }
+  .ion-color-カテゴリー１ {
+    --ion-color-base: #9a78da;
+    --ion-color-base-rgb: 105, 187, 123;
+    --ion-color-contrast: #ffffff;
+    --ion-color-contrast-rgb: 255, 255, 255;
+    --ion-color-shade: #5ca56c;
+    --ion-color-tint: #78c288;
+  }
+  .ion-color-カテゴリー２ {
+    --ion-color-base: #bb127b;
+    --ion-color-base-rgb: 105, 187, 123;
+    --ion-color-contrast: #ffffff;
+    --ion-color-contrast-rgb: 255, 255, 255;
+    --ion-color-shade: #5ca56c;
+    --ion-color-tint: #78c288;
+  }	
 }

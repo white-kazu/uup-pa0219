@@ -1,6 +1,7 @@
-export interface Post{
+export interface Post {
     id: string;
     userName: string;
     message: string;
     created: any;
+    category: string;
 }

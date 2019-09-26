@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
     message: string; // 入力されるメッセージ用
     post: Post; // Postと同じデータ構造のプロパティーを指定できる
     posts: Post[]; // Post型の配列という指定もできる
-
+    category: string;
     // Firestoreのコレクションを扱うプロパティー
     postsCollection: AngularFirestoreCollection<Post>;
 
@@ -30,20 +30,23 @@ export class HomePage implements OnInit {
         private afAuth: AngularFireAuth,
         private router: Router,
         private modalCtrl: ModalController
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.afStore.firestore.enableNetwork();
         // コンポーネントの初期化時に、投稿を読み込むgetPosts()を実行
         this.getPosts();
+        this.category = 'ホーム';
     }
 
     addPost() {
+        console.log(this.category);
         // 入力されたメッセージを使って、投稿データを作成
         this.post = {
             id: '',
             userName: this.afAuth.auth.currentUser.displayName,
             message: this.message,
+            category: this.category,
             created: firebase.firestore.FieldValue.serverTimestamp()
         };
 
@@ -119,7 +122,7 @@ export class HomePage implements OnInit {
         this.postsCollection
             .doc(post.id)
             .update({
-                message: message
+                message
             })
             .then(async () => {
                 const toast = await this.toastCtrl.create({
@@ -163,7 +166,7 @@ export class HomePage implements OnInit {
         moment.locale('ja');
         return moment(time).fromNow();
     }
-    
+
 // ログアウト処理
     logout() {
         this.afStore.firestore.disableNetwork();
@@ -195,5 +198,9 @@ export class HomePage implements OnInit {
             }
         });
         return await modal.present();
+    }
+
+    segmentChanged(ev: any) {
+        this.category = ev.detail.value;
     }
 }

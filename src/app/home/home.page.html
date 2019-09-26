@@ -19,48 +19,83 @@
 
       <ion-item margin-bottom class="textBlock" >
         <ion-label position="floating">メッセージ</ion-label>
-        <ion-input
-                name="message" required [(ngModel)]="message"
-                type="text">
+        <ion-input name="message" required [(ngModel)]="message" type="text">
         </ion-input>
       </ion-item>
-      <ion-button type="submit" expand="full" block class="submit"
-                  [disabled]="!f.form.valid"
-      >投稿</ion-button>
+      <ion-label padding>カテゴリー : {{ category }}</ion-label>
+
+      <ion-button type="submit" expand="full" block class="submit" [disabled]="!f.form.valid">
+        投稿
+      </ion-button>
     </ion-list>
   </form>
 
-  <ion-card class="singlePost" *ngFor="let p of posts; let i = index" >
-    <ion-item>
-      <h2 padding-vertical>{{p.userName}}</h2>
-    </ion-item>
-  <ion-card-content>
-    <div margin-bottom>{{p.message}}</div>
-    <ion-row>
-      <ion-col size="6" size-sm>
-        <ion-button (click)="showComment(p)" fill="clear" size="small">
+  <ion-segment scrollable
+  (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="ホーム">
+      <ion-icon name="home"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button checked value="カテゴリー１">
+      <ion-icon name="book"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button chacked value="カテゴリー２">
+      <ion-icon name="calendar"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+
+    <ng-container *ngFor="let p of posts">
+      <ion-card
+      class="singlePost"
+      [color]="category"
+
+      *ngIf="p.category == category">
+     <ion-item>
+       <h2 padding-vertical>{{ p.userName }}</h2>
+     </ion-item> 
+     <ion-card-content>
+      <div margin-bottom>{{ p.message }}</div>
+      <ion-row>
+        <ion-col size="6" size-sm>
+          <ion-button
+          color="dark"
+          (click)="showComment(p)"
+          fill="clear"
+          size="small"
+          >
           <ion-icon name="text"></ion-icon>
           <div>コメント</div>
-        </ion-button>
-      </ion-col>
-      <ion-col size="6" size-sm>
-        <ion-button (click)="presentPrompt(i)" fill="clear" size="small">
+          </ion-button>
+        </ion-col>
+        <ion-col size="6" size-sm>
+          <ion-button
+          color="light"
+          (click)="presentPrompt(p)"
+          fill="clear"
+          size="small"
+          >
           <ion-icon name="create"></ion-icon>
           <div>編集</div>
-        </ion-button>
-      </ion-col>
-      <ion-col size="6" size-sm>
-        <ion-button (click)="deletePost(i)" fill="clear" size="small">
+          </ion-button>
+        </ion-col>
+        <ion-col size="6" size-sm>
+          <ion-button
+          color="primary"
+          (click)="deletePost(p)"
+          fill="clear"
+          size="small"
+          >
           <ion-icon name="trash"></ion-icon>
           <div>削除</div>
-        </ion-button>
-      </ion-col>
-      <ion-col size="6" size-sm class="postedTime">
-        <ion-note *ngIf="p.created">
-          {{ differenceTime(p.created.toDate()) }}
-        </ion-note>
-    </ion-col>    
+          </ion-button>
+        </ion-col>
+        <ion-col size="6" size-sm class="postedTime">
+          <ion-note *ngIf="p.created" color="danger">
+            {{ differenceTime(p.created.toDate()) }}
+          </ion-note>
+        </ion-col>
       </ion-row>
-    </ion-card-content>
-  </ion-card>
+
+     </ion-card-content>
+    </ion-card>
+    </ng-container>
 </ion-content>
